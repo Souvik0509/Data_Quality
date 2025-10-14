@@ -1,0 +1,1 @@
+This is Data Quality Framework based on CSV or EXCEL file and CONFIG.JSON push 
