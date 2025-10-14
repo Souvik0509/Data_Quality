@@ -1,0 +1,25 @@
+input:
+   input_file : "{file_name}"
+   input_folder : "INPUT_FOLDER"
+   file_type : "*.*"
+   header: True
+   encoder : "utf-8"
+  
+data_quality :  
+   string:
+      check_nulls : True 
+      check_duplicates : True 
+      check_special_chars : True 
+      check_max_length : True 
+   numeric:
+      check_nulls : True 
+      check_positive : True 
+      check_dupliates : True 
+   Date : 
+       check_nulls : True 
+       check_date_time_format : True 
+       check_future_date : True 
+
+
+output: 
+   output_folder: "OUTPUT_FOLDER"

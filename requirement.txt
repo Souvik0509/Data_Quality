@@ -1,0 +1,7 @@
+pandas
+dotenv
+yaml
+logging 
+re
+glob
+

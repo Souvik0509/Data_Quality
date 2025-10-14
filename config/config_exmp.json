@@ -1,0 +1,46 @@
+{
+    "fileName": "Customer_Updated.csv",
+    "columns": {
+    "customer_id": {
+    "mandatory": true,
+    "rules_enabled": true,
+    "Data_Type": "integer",
+    "Rules": [
+        "null_check",
+        "unique_check",
+        "data_type_check"
+                    ]},
+    "customer_email": {
+    "mandatory": false,
+    "rules_enabled": true,
+    "Data_Type": "String",
+    "Rules": [
+    "valid_email_format"
+                    ]},
+    "age": {
+    "mandatory": false,
+    "rules_enabled": true,
+    "Data_Type": "integer",
+    "Rules": [
+    "data_type_check",
+    "Range_check",
+    "null_check"
+    ]},
+    "join_date": {
+    "mandatory": true,
+    "rules_enabled": true,
+    "Data_Type": "Date",
+    "Rules": ["data_type_check",
+           "null_check"]},
+    "order_id": {
+    "mandatory": false,
+    "rules_enabled": true,
+    "Data_Type": "String",
+    "Rules": ["null_check",
+          "special_char_check"]
+
+    }
+
+    }
+}
+        
