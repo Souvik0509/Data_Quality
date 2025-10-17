@@ -4,4 +4,7 @@ yaml
 logging 
 re
 glob
-
+azure-identity 
+azure-keyvault-secrets 
+azure-storage-blob 
+azure-storage-file-datalake 
