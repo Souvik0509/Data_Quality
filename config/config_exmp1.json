@@ -1,0 +1,36 @@
+{
+    "fileName": "Hospital_Admissions.csv",
+    "columns": {
+    "country": {
+    "mandatory": true,
+    "rules_enabled": true,
+    "Data_Type": "String",
+    "Rules": [
+        "null_check",
+        "special_char_check"
+                    ]},
+    "indicator": {
+    "mandatory": false,
+    "rules_enabled": true,
+    "Data_Type": "String",
+    "Rules": [
+    "special_char_check"
+                    ]},
+    "date": {   
+    "mandatory": true,
+    "rules_enabled": true,
+    "Data_Type": "Date",
+    "Rules": [
+    "data_type_check",
+    "null_check"
+    ]},
+    "url": {
+    "mandatory": true,
+    "rules_enabled": true,
+    "Data_Type": "Date",
+    "Rules": ["is_valid_url",
+           "null_check"]}
+
+
+    }
+}

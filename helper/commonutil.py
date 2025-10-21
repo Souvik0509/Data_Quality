@@ -69,3 +69,31 @@ class CommonUtil:
             logging.exception(f" failed to write dataframe to Sql Server : {e}")
             raise e 
         
+    @staticmethod   
+    def convert_to_dataframe(report : list) -> pd.DataFrame:
+        try : 
+            report_df = pd.DataFrame(report)
+            if report_df.empty:
+                logging.warning(" The report dataframe is empty ")
+            return report_df
+        except Exception as e :
+            logging.exception(" Error in converting the report to dataframe")
+            raise e
+    @staticmethod    
+    def save_report(report, folder_path : str , filename : str):
+            try : 
+                report_df = CommonUtil.convert_to_dataframe(report)
+                os.makedirs(folder_path,exist_ok=True)
+                new_flename = filename.split(".")[0] + "_data_quality_report.csv"
+                file_path = os.path.join(folder_path,new_flename)
+
+                if os.path.exists(file_path):
+                    logging.warning(f" Output file already exists and will be overwritten : {file_path}")
+                    os.remove(file_path)
+                
+                report_df.to_csv(file_path,index=False)
+                logging.info(f" Data Quality Report saved successfully at {file_path}")
+            except Exception as e :
+                logging.exception(" Error in saving the report to csv")
+                raise e
+        
