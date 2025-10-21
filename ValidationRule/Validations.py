@@ -1,7 +1,7 @@
 import pandas as pd 
 import re 
 import logging
-
+from urllib.parse import urlparse 
 
 
 class QualityRules: 
@@ -10,7 +10,7 @@ class QualityRules:
         self.df = df
     
 
-    def null_check(self, column_name : str) -> bool:
+    def null_check(self, column_name : str):
         """ Check for null values in the specified column """
         if column_name not in self.df.columns:
             raise ValueError(f"Column {column_name} does not exist in DataFrame")
@@ -20,7 +20,7 @@ class QualityRules:
             return False ,"Nulls Values Found"
         return True, "No Null Values"
     
-    def unique_check(self, column_name : str) -> bool:
+    def unique_check(self, column_name : str):
         """ Check for unique values in the specified column """
         if column_name not in self.df.columns:
             raise ValueError(f"Column {column_name} does not exist in DataFrame")
@@ -30,7 +30,7 @@ class QualityRules:
             return False, "Duplicate Values Found"
         return True, "All Values are Unique"
     
-    def data_type_check(self, column_name : str, expected_type : str) -> bool:
+    def data_type_check(self, column_name : str, expected_type : str):
         """ Check if the data type of the specified column matches the expected type """
         if column_name not in self.df.columns:
             raise ValueError(f"Column {column_name} does not exist in DataFrame")
@@ -65,7 +65,7 @@ class QualityRules:
             return True, "ALL email formats are valid"
         return False, "All email formats are not valid"
     
-    def Range_check(self, column_name : str, min_value : float = None, max_value : float = None) -> pd.Series:
+    def Range_check(self, column_name : str, min_value : float = None, max_value : float = None):
         """ Check if the values in the specified column fall within the given range """
         if column_name not in self.df.columns:
             raise ValueError(f"Column {column_name} does not exist in DataFrame")
@@ -85,7 +85,7 @@ class QualityRules:
         return False , f"Values out of range. Expected between {min_value} and {max_value}"
         
     
-    def special_char_check(self, column_name : str) -> pd.Series:
+    def special_char_check(self, column_name : str) :
         """ Check for special characters in the specified column """
         if column_name not in self.df.columns:
             raise ValueError(f"Column {column_name} does not exist in DataFrame")
@@ -96,4 +96,20 @@ class QualityRules:
         if not result_Series.all():
             return False, "Special characters found"
         return True, "No special characters found"
+    
+    def is_valid_url(self,url:str) :
+        """ Validate if the given string is a valid URL """
+        if not isinstance(url,str) :
+            return False , "Invalid URL Format may have nan values"
+        try:
+            result = urlparse(url)
+            bool_val = all([result.scheme in ("http", "https"), result.netloc])
+            if bool_val:
+                return True, "Valid URL"
+            else:
+                return False, "Invalid URL"
+        except Exception as e:
+            logging.exception(" Error in URL validation")
+            return False
+    #### will add more rules in future and may modify existing rules for better performance ## 
     

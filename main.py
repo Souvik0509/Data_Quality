@@ -2,6 +2,7 @@ import pandas as pd
 from Load_data.Data_Load import CsvLoader,ExcelLoader
 from helper.config_json_loader import ConfigJsonLoad
 from Qaulity.Data_quality import QualityReport
+from helper.commonutil import CommonUtil
 import logging
 import argparse
 import os 
@@ -11,7 +12,6 @@ load_dotenv()
 # dataset = loader.load_data()
 # print(dataset.columns)
 # print(dataset.head())
-
 # config = ConfigJsonLoad.config_json_load("config/config_exmp.json")
 # print(config['columns']) 
 
@@ -34,6 +34,7 @@ def main():
     data_loader = CsvLoader(datafile,"csv")
     config_fle = ConfigJsonLoad.config_json_load(args.config)
     file_name = config_fle['fileName']
+    print(file_name)
     try:
         df = data_loader.load_data()
         if df is None or df.shape[0] == 0:
@@ -48,11 +49,13 @@ def main():
     #print(df.head())s
     report = quality_report.rules_execution(file_name)
     #print(report)
+    print(os.path.join(output_folder_path,file_name))
     if os.path.exists(os.path.join(output_folder_path,file_name)):
         print(f" Output file already exists and will be overwritten : {os.path.join(output_folder_path,file_name)}")
     else:
         print(f" PATH DOESNOT EXISTS")
-    quality_report.save_report(pd.DataFrame(report),output_folder_path,file_name)
+    #quality_report.save_report(pd.DataFrame(report),output_folder_path,file_name)
+    CommonUtil.save_report(report,output_folder_path,file_name)
 
 
 if __name__ == "__main__":
