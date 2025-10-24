@@ -4,22 +4,27 @@
     "country": {
     "mandatory": true,
     "rules_enabled": true,
+    "regex_pattern_flg":true,
     "Data_Type": "String",
     "Rules": [
         "null_check",
         "special_char_check"
-                    ]},
+                    ],
+    "regex_pattern": "^[a-zA-Z0-9 ]+$"},             
     "indicator": {
     "mandatory": false,
     "rules_enabled": true,
+    "regex_pattern_flg":true,
     "Data_Type": "String",
     "Rules": [
     "special_char_check"
-                    ]},
+                    ],
+    "regex_pattern": "^[a-zA-Z0-9 ]+$"},
     "date": {   
     "mandatory": true,
     "rules_enabled": true,
     "Data_Type": "Date",
+    "regex_pattern_flg":false,
     "Rules": [
     "data_type_check",
     "null_check"

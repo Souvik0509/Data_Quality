@@ -85,13 +85,13 @@ class QualityRules:
         return False , f"Values out of range. Expected between {min_value} and {max_value}"
         
     
-    def special_char_check(self, column_name : str) :
+    def special_char_check(self, column_name : str,regex_pattern:str) :
         """ Check for special characters in the specified column """
         if column_name not in self.df.columns:
             raise ValueError(f"Column {column_name} does not exist in DataFrame")
         
-        pattern = r'[^a-zA-Z0-9\s]'
-        result_Series = self.df[column_name].str.contains(pattern, regex=True)
+        #pattern = r'[^a-zA-Z0-9\s]'
+        result_Series = self.df[column_name].str.contains(regex_pattern, regex=True)
         logging.info(f"Special character check results for column {column_name} is obtained")
         if not result_Series.all():
             return False, "Special characters found"

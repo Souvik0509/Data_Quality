@@ -36,6 +36,11 @@ class QualityReport:
                     else:
                         print(f" Skipping rules for column : {column} as rules_enabled is set to False")
                         continue
+                    if values.get("regex_pattern_flg",False):
+                        print(f"Extracting regex pattern for column : {column}")
+                    else:
+                        print(" Regex pattern flag is not set, skipping regex pattern extraction")
+                        
                     mandatory = values.get("mandatory",False)
                     if mandatory and column not in self.df.columns:
                         logging.error(f" Mandatory column {column} is missing in the dataframe")
@@ -87,7 +92,7 @@ class QualityReport:
             "data_type_check": [column, items.get("Data_Type", "")],
             "range_check": [column, items.get("min_value", None), items.get("max_value", None)],
             "valid_email_format": [column],
-            "special_char_check": [column],
+            "special_char_check": [column,items.get("regex_pattern","")],
             "null_check": [column],
             "unique_check": [column],
         }
@@ -106,20 +111,20 @@ class QualityReport:
     #             logging.exception(" Error in converting the report to dataframe")
     #             raise e
 
-    def save_report(self, report_df : pandas.DataFrame, folder_path : str , filename : str):
-        try : 
+    # def save_report(self, report_df : pandas.DataFrame, folder_path : str , filename : str):
+    #     try : 
 
-            os.makedirs(folder_path,exist_ok=True)
-            new_flename = filename.split(".")[0] + "_data_quality_report.csv"
-            file_path = os.path.join(folder_path,new_flename)
+    #         os.makedirs(folder_path,exist_ok=True)
+    #         new_flename = filename.split(".")[0] + "_data_quality_report.csv"
+    #         file_path = os.path.join(folder_path,new_flename)
 
-            if os.path.exists(file_path):
-                logging.warning(f" Output file already exists and will be overwritten : {file_path}")
-                os.remove(file_path)
+    #         if os.path.exists(file_path):
+    #             logging.warning(f" Output file already exists and will be overwritten : {file_path}")
+    #             os.remove(file_path)
             
-            report_df.to_csv(file_path,index=False)
-            logging.info(f" Data Quality Report saved successfully at {file_path}")
-        except Exception as e :
-            logging.exception(" Error in saving the report to csv")
-            raise e
+    #         report_df.to_csv(file_path,index=False)
+    #         logging.info(f" Data Quality Report saved successfully at {file_path}")
+    #     except Exception as e :
+    #         logging.exception(" Error in saving the report to csv")
+    #         raise e
   
